@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BJCree:wght@400;500;600;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Spill The Bill</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <h1 id="Heading">Spill the bill</h1>
+    <section>
+      <h2>Items</h2>
+      <ul id="items" class="list"></ul>
+      <p id="bill-total" class="muted"></p>
+      <form id="item-form" class="inline">
+        <input id="item-name" placeholder="Item name" required>
+        <input id="item-price" type="number" min="0" step="0.01" placeholder="Price" required>
+        <input id="item-qty" type="number" min="1" step="1" value="1" aria-label="Quantity" required>
+        <button type="submit">Add item</button>
+      </form>
+      <div class="tax-settings">
+        <label>Total tax and charges (₹) <input id="tax" type="number" min="0" step="0.01"></label>
+        <label>Split tax
+          <select id="tax-mode">
+            <option value="proportional">In proportion to what each person had</option>
+            <option value="equal">Equally among everyone</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section>
+      <h2>People</h2>
+      <ul id="people" class="list tags"></ul>
+      <form id="person-form" class="inline">
+        <input id="person-name" placeholder="Name" required>
+        <button type="submit">Add person</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Who had what: </h2>
+      <div id="assign"></div>
+    </section>
+
+    <section>
+      <h2>Each person pays</h2>
+      <p id="warning" class="warn" role="status"></p>
+      <div id="results" class="cards"></div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
