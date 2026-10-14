@@ -1,0 +1,62 @@
+### 1. Create a bill
+# @name createBill
+POST http://localhost:3000/api/bills
+Content-Type: application/json
+
+{
+  "items": [
+    { "name": "Paneer Tikka", "price": 280, "qty": 1 },
+    { "name": "Butter Naan", "price": 60, "qty": 4 },
+    { "name": "Cold Coffee", "price": 150, "qty": 2 }
+  ],
+  "tax": 62.5,
+  "taxMode": "proportional"
+}
+
+### 2. Load the bill (gives you the real item ids)
+# @name getBill
+GET http://localhost:3000/api/bills/{{createBill.response.body.$.code}}
+
+### 3. Add a person
+# @name addPerson
+POST http://localhost:3000/api/bills/{{createBill.response.body.$.code}}/people
+Content-Type: application/json
+
+{ "name": "Aman" }
+
+### 4. Tick the first item for that person
+POST http://localhost:3000/api/bills/{{createBill.response.body.$.code}}/selections
+Content-Type: application/json
+
+{
+  "itemId": {{getBill.response.body.$.items[0].id}},
+  "personId": {{addPerson.response.body.$.id}},
+  "selected": true
+}
+
+### 5. Load the bill again (selections should now show the tick)
+GET http://localhost:3000/api/bills/{{createBill.response.body.$.code}}
+
+### 6. Untick it
+POST http://localhost:3000/api/bills/{{createBill.response.body.$.code}}/selections
+Content-Type: application/json
+
+{
+  "itemId": {{getBill.response.body.$.items[0].id}},
+  "personId": {{addPerson.response.body.$.id}},
+  "selected": false
+}
+
+### 7. Host changes the tax (uses the host key from step 1)
+PATCH http://localhost:3000/api/bills/{{createBill.response.body.$.code}}
+Content-Type: application/json
+x-host-key: {{createBill.response.body.$.hostKey}}
+
+{ "tax": 50, "taxMode": "equal" }
+
+### 8. Same change with a wrong key (should return 403)
+PATCH http://localhost:3000/api/bills/{{createBill.response.body.$.code}}
+Content-Type: application/json
+x-host-key: wrong-key
+
+{ "tax": 1 }

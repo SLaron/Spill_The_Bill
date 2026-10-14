@@ -1,0 +1,27 @@
+{
+  "name": "spill_the_bill",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SLaron/Spill_The_Bill-.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SLaron/Spill_The_Bill-/issues"
+  },
+  "homepage": "https://github.com/SLaron/Spill_The_Bill-#readme",
+  "dependencies": {
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
+    "mysql2": "^3.24.6"
+  }
+}
